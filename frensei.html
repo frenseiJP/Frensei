@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frensei - Pop & Friendly Japanese</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #F8F1E2;
+            --main-red: #A22627;
+            --accent-yellow: #FFB800; /* ポップなアクセントカラー */
+            --card-bg: #FFFFFF;
+            --font-en: 'Quicksand', sans-serif;
+            --font-jp: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* スクロールで見えた時に適用するクラス（簡易版として最初からアニメーションが走る設定） */
+        .reveal {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* --- Base Styles --- */
+        body {
+            background-color: var(--bg-color);
+            color: #444;
+            font-family: var(--font-jp);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Pop UI Elements --- */
+        h2 {
+            font-family: var(--font-en);
+            font-weight: 800;
+            color: var(--main-red);
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 4rem 0 2rem;
+            position: relative;
+        }
+
+        /* 見出しの下の飾り線 */
+        h2::after {
+            content: '~~~~';
+            display: block;
+            color: var(--accent-yellow);
+            letter-spacing: -5px;
+            font-size: 1.2rem;
+            margin-top: -5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px; /* より丸く */
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 0 rgba(162, 38, 39, 0.05); /* ポップな影 */
+            border: 3px solid #eee;
+        }
+
+        /* ポップなボタン */
+        .btn-pop {
+            display: block;
+            background-color: var(--main-red);
+            color: white;
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 800;
+            border-bottom: 6px solid var(--dark-red, #711A1B);
+            transition: all 0.2s;
+            margin: 2rem 0;
+        }
+
+        .btn-pop:active {
+            transform: translateY(4px);
+            border-bottom-width: 2px;
+        }
+
+        /* --- Sections --- */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--main-red);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+/* --- <style> の中にある .avatar-circle をこれに書き換える --- */
+.avatar-circle {
+    width: 150px;
+    height: 150px;
+    background-color: #E0F2F1; /* [3の修正] 背景を薄い水色に */
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    border: 5px solid var(--accent-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;         /* [2の修正] はみ出しをカット */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* [3の修正] ふわっとした影 */
+}
+
+/* --- [2の修正] そのすぐ下にこれを新しく追加する --- */
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像の比率を保ってフィットさせる */
+}
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #FFF;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid #F0F0F0;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            background: var(--bg-color);
+            padding: 0.5rem;
+            border-radius: 10px;
+        }
+
+        .step-bubble {
+            background: var(--main-red);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        /* 吹き出しのしっぽ */
+        .step-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 30px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: var(--main-red) transparent transparent;
+        }
+
+        footer {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 40px 40px 0 0;
+        }
+
+        /* テキスト補助 */
+        .en { font-weight: 700; font-size: 1.1rem; display: block; }
+        .jp { font-size: 0.9rem; color: #777; display: block; margin-top: 4px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <section class="hero reveal">
+        <div class="avatar-circle">
+    <img src="/Users/st24/Frensei/image/Frensei.png" alt="Frensei">
+        </div>
+        <h1>Talk Japanese with a friend!</h1>
+        <p class="en">Frensei makes Japanese fun.</p>
+        <p class="jp">友だちのような先生と、日本語をもっと楽しく。</p>
+        
+        
+        <a href="https://calendly.com/frensei-jp/30min" class="btn-pop">
+            <span style="font-size: 1.3rem;">FREE TRIAL NOW</span><br>
+            <span style="font-size: 0.8rem; opacity: 0.9;">30分無料体験レッスン</span>
+        </a>
+    </section>
+
+    <section class="reveal" style="animation-delay: 0.2s;">
+        <h2>Who it's for</h2>
+        <div class="card">
+            <div class="topic-item">
+                <span class="icon">🏠</span>
+                <div>
+                    <span class="en">Living in Japan</span>
+                    <span class="jp">日本に住んでいる・来たい人</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <span class="icon">📚</span>
+                <div>
+                    <span class="en">Beyond Textbooks</span>
+                    <span class="jp">教科書じゃない言葉を知りたい人</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <span class="icon">✨</span>
+                <div>
+                    <span class="en">Beginners Welcome</span>
+                    <span class="jp">ひらがなが読めればOK！</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal" style="animation-delay: 0.4s;">
+        <h2>Let's talk!</h2>
+        <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;" class="jp">たとえばこんな話ができます</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
+                <span style="font-size: 2rem;">🍣</span>
+                <span class="en" style="font-size: 0.9rem;">Daily Life</span>
+            </div>
+            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
+                <span style="font-size: 2rem;">🎮</span>
+                <span class="en" style="font-size: 0.9rem;">Hobbies</span>
+            </div>
+            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
+                <span style="font-size: 2rem;">💼</span>
+                <span class="en" style="font-size: 0.9rem;">Work</span>
+            </div>
+            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
+                <span style="font-size: 2rem;">🚄</span>
+                <span class="en" style="font-size: 0.9rem;">Travel</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal" style="animation-delay: 0.6s;">
+        <h2>Pricing</h2>
+        <div class="card" style="border: 4px solid var(--accent-yellow);">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <span class="en" style="font-size: 1.5rem;">Monthly Plan</span>
+                <span class="jp">一番人気！1か月コース</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ddd; padding: 0.5rem 0;">
+                <span class="en">50 min × 4</span>
+                <span class="en" style="color: var(--main-red);">$70</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                <span class="en">25 min × 4</span>
+                <span class="en" style="color: var(--main-red);">$35</span>
+            </div>
+        </div>
+    </section>
+
+</div><footer id="booking">
+    <div class="container">
+        <h2 style="margin-top: 0;">Try for FREE!</h2>
+        <p class="en">Let's have a 30-min chat.</p>
+        <p class="jp">まずは30分、いっしょにお話ししましょう！</p>
+        
+       
+        <a href="https://calendly.com/frensei-jp/30min" class="btn-pop">
+            <span style="font-size: 1.3rem;">BOOK MY LESSON</span>
+        </a>
+        <p style="font-size: 0.8rem; color: #999;">© 2025 Frensei Japanese</p>
+    </div>
+</footer>
+
+<script>
+    // スクロールに合わせてアニメーションを発火させるスクリプト
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = "0"; // 初期状態
+        observer.observe(section);
+    });
+</script>
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script type="text/javascript">
+     window.onload = function() {
+        // 全ての .btn-pop ボタンにCalendlyのポップアップ機能を紐付けます
+        const buttons = document.querySelectorAll('.btn-pop');
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault(); // 通常のページ遷移を止める
+                Calendly.initPopupWidget({ url: this.href });
+                return false;
+            });
+        });
+    }
+    </script>
+
+</body>
+</html>
