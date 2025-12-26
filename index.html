@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,180 +10,228 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
+        /* --- デザイン変数 --- */
         :root {
-            --bg-color: #F8F1E2;
-            --main-red: #A22627;
-            --accent-yellow: #FFB800; /* ポップなアクセントカラー */
+            --frensei-red: #A22627;
+            --frensei-green: #1B4D3E;
+            --frensei-blue: #1A5FB4;
+            --accent-yellow: #FFB800;
+            --bg-cream: #FDFBF7;
             --card-bg: #FFFFFF;
-            --font-en: 'Quicksand', sans-serif;
-            --font-jp: 'M PLUS Rounded 1c', sans-serif;
+            --font-main: 'M PLUS Rounded 1c', 'Quicksand', sans-serif;
         }
 
-        /* --- Animations --- */
+        /* --- アニメーション --- */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* スクロールで見えた時に適用するクラス（簡易版として最初からアニメーションが走る設定） */
         .reveal {
+            opacity: 0; /* 初期状態 */
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        /* --- Base Styles --- */
+        /* --- ベーススタイル --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background-color: var(--bg-color);
-            color: #444;
-            font-family: var(--font-jp);
+            background-color: var(--bg-cream);
+            color: #333;
+            font-family: var(--font-main);
             line-height: 1.8;
             overflow-x: hidden;
         }
 
+        /* コンテナ：PCでは広く、スマホでは画面一杯に */
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        /* --- Pop UI Elements --- */
+        section { padding: 60px 0; }
+
+        /* --- タイポグラフィ --- */
         h2 {
-            font-family: var(--font-en);
-            font-weight: 800;
-            color: var(--main-red);
-            font-size: 1.8rem;
+            font-size: 2rem;
             text-align: center;
-            margin: 4rem 0 2rem;
+            color: var(--frensei-green);
+            margin-bottom: 3rem;
             position: relative;
         }
 
-        /* 見出しの下の飾り線 */
         h2::after {
             content: '~~~~';
             display: block;
             color: var(--accent-yellow);
-            letter-spacing: -5px;
             font-size: 1.2rem;
-            margin-top: -5px;
+            margin-top: -10px;
+            letter-spacing: -2px;
+        }
+
+        .en { font-weight: 700; font-size: 1.1rem; display: block; }
+        .jp { font-size: 0.9rem; color: #666; display: block; margin-top: 4px; }
+
+        /* --- ヒーローセクション (PCとスマホでレイアウト変化) --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        /* PCでのヒーローレイアウト */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row-reverse;
+                text-align: left;
+                justify-content: space-between;
+                padding: 100px 0;
+            }
+            .hero-text { flex: 1; }
+            .hero-image { flex: 0 0 400px; }
+        }
+
+        .avatar-circle {
+            width: 220px;
+            height: 220px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 8px solid var(--frensei-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(162, 38, 39, 0.15);
+        }
+
+        .avatar-circle img { width: 85%; height: auto; object-fit: contain; }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--frensei-red);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- ポップなボタン --- */
+        .btn-pop {
+            display: inline-block;
+            background-color: var(--frensei-red);
+            color: white;
+            text-align: center;
+            padding: 1.2rem 2.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 800;
+            border-bottom: 6px solid #711A1B;
+            transition: all 0.2s;
+            margin-top: 2rem;
+            box-shadow: 0 10px 20px rgba(162, 38, 39, 0.2);
+        }
+
+        .btn-pop:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(162, 38, 39, 0.3); }
+        .btn-pop:active { transform: translateY(4px); border-bottom-width: 2px; }
+
+        /* --- カードデザイン (グリッドシステム) --- */
+        .card-grid {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr; /* スマホ */
+        }
+
+        @media (min-width: 768px) {
+            .card-grid { grid-template-columns: repeat(3, 1fr); } /* PC/タブレット */
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 24px; /* より丸く */
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 0 rgba(162, 38, 39, 0.05); /* ポップな影 */
-            border: 3px solid #eee;
+            border-radius: 30px;
+            padding: 2.5rem;
+            border: 2px solid #f0f0f0;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
         }
 
-        /* ポップなボタン */
-        .btn-pop {
-            display: block;
-            background-color: var(--main-red);
-            color: white;
-            text-align: center;
-            padding: 1.2rem;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 800;
-            border-bottom: 6px solid var(--dark-red, #711A1B);
-            transition: all 0.2s;
-            margin: 2rem 0;
-        }
+        .card:hover { transform: translateY(-10px); }
 
-        .btn-pop:active {
-            transform: translateY(4px);
-            border-bottom-width: 2px;
-        }
-
-        /* --- Sections --- */
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            color: var(--main-red);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-/* --- <style> の中にある .avatar-circle をこれに書き換える --- */
-.avatar-circle {
-    width: 150px;
-    height: 150px;
-    background-color: #E0F2F1; /* [3の修正] 背景を薄い水色に */
-    border-radius: 50%;
-    margin: 0 auto 2rem;
-    border: 5px solid var(--accent-yellow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;         /* [2の修正] はみ出しをカット */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* [3の修正] ふわっとした影 */
-}
-
-/* --- [2の修正] そのすぐ下にこれを新しく追加する --- */
-.avatar-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 画像の比率を保ってフィットさせる */
-}
-
-        .topic-item {
+        /* 特徴・トピック用アイテム */
+        .feature-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            background: #FFF;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            background: #f9f9f9;
             padding: 1rem;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            border: 2px solid #F0F0F0;
-        }
-
-        .icon {
-            font-size: 1.5rem;
-            background: var(--bg-color);
-            padding: 0.5rem;
-            border-radius: 10px;
-        }
-
-        .step-bubble {
-            background: var(--main-red);
-            color: white;
-            padding: 1.5rem;
             border-radius: 20px;
-            margin-bottom: 1rem;
-            position: relative;
         }
 
-        /* 吹き出しのしっぽ */
-        .step-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 30px;
-            border-width: 10px 10px 0;
-            border-style: solid;
-            border-color: var(--main-red) transparent transparent;
+        .icon-box {
+            font-size: 1.8rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
+        /* --- 料金表 --- */
+        .pricing-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            border: 4px solid var(--frensei-blue); /* 青で清潔感を */
+            background: white;
+            border-radius: 35px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 2px dashed #eee;
+        }
+
+        .price-val { font-size: 1.5rem; font-weight: 800; color: var(--frensei-blue); }
+
+        /* --- フッター --- */
         footer {
             background: white;
-            padding: 4rem 2rem;
+            padding: 80px 0 40px;
             text-align: center;
-            border-radius: 40px 40px 0 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: 60px;
         }
 
-        /* テキスト補助 */
-        .en { font-weight: 700; font-size: 1.1rem; display: block; }
-        .jp { font-size: 0.9rem; color: #777; display: block; margin-top: 4px; }
+        .footer-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-links a:hover { color: var(--frensei-red); border-bottom-color: var(--frensei-red); }
 
     </style>
 </head>
@@ -192,157 +240,141 @@
 <div class="container">
     
     <section class="hero reveal">
-        <div class="avatar-circle">
-            <img src="./Frensei.png" alt="Frensei logo">
-
+        <div class="hero-image">
+            <div class="avatar-circle">
+                <img src="./Frensei.jpg" alt="Frensei Logo">
+            </div>
         </div>
-        <h1>Talk Japanese with a friend!</h1>
-        <p class="en">Frensei makes Japanese fun.</p>
-        <p class="jp">友だちのような先生と、日本語をもっと楽しく。</p>
-        
-        
-        <a href="https://calendly.com/frensei-jp/30min" class="btn-pop">
-            <span style="font-size: 1.3rem;">FREE TRIAL NOW</span><br>
-            <span style="font-size: 0.8rem; opacity: 0.9;">30分無料体験レッスン</span>
-        </a>
+        <div class="hero-text">
+            <h1>Talk Japanese<br>with a friend!</h1>
+            <p class="en">Frensei makes Japanese fun and practical.</p>
+            <p class="jp">「教科書にない」生きた日本語を、友だちのような先生と。</p>
+            
+            <a href="https://calendly.com/frensei-jp/30min" class="btn-pop">
+                <span style="font-size: 1.3rem;">FREE TRIAL NOW</span><br>
+                <span style="font-size: 0.8rem; opacity: 0.9;">30分無料体験レッスン</span>
+            </a>
+        </div>
     </section>
 
-    <section class="reveal" style="animation-delay: 0.2s;">
+    <section class="reveal">
         <h2>Who it's for</h2>
-        <div class="card">
-            <div class="topic-item">
-                <span class="icon">🏠</span>
-                <div>
-                    <span class="en">Living in Japan</span>
-                    <span class="jp">日本に住んでいる・来たい人</span>
+        <div class="card-grid">
+            <div class="card">
+                <div class="feature-item">
+                    <span class="icon-box">🏠</span>
+                    <div><span class="en">Expats</span><span class="jp">日本在住の方</span></div>
                 </div>
+                <p class="jp">日常生活や仕事での「困った」を解決します。</p>
             </div>
-            <div class="topic-item">
-                <span class="icon">📚</span>
-                <div>
-                    <span class="en">Beyond Textbooks</span>
-                    <span class="jp">教科書じゃない言葉を知りたい人</span>
+            <div class="card">
+                <div class="feature-item">
+                    <span class="icon-box">💬</span>
+                    <div><span class="en">Speakers</span><span class="jp">会話重視の方</span></div>
                 </div>
+                <p class="jp">文法よりも「通じる楽しさ」を大切にします。</p>
             </div>
-            <div class="topic-item">
-                <span class="icon">✨</span>
-                <div>
-                    <span class="en">Beginners Welcome</span>
-                    <span class="jp">ひらがなが読めればOK！</span>
+            <div class="card">
+                <div class="feature-item">
+                    <span class="icon-box">🌱</span>
+                    <div><span class="en">Beginners</span><span class="jp">初心者歓迎</span></div>
                 </div>
+                <p class="jp">ひらがなが読めれば大丈夫。ゆっくり進めましょう。</p>
             </div>
         </div>
     </section>
 
-    <section class="reveal" style="animation-delay: 0.4s;">
-        <h2>Let's talk!</h2>
-        <p style="text-align: center; margin-top: -1rem; margin-bottom: 2rem;" class="jp">たとえばこんな話ができます</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
-                <span style="font-size: 2rem;">🍣</span>
-                <span class="en" style="font-size: 0.9rem;">Daily Life</span>
+    <section class="reveal">
+        <h2 style="color: var(--frensei-red);">What to talk?</h2>
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🍣</span>
+                <span class="en">Food & Culture</span>
             </div>
-            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
-                <span style="font-size: 2rem;">🎮</span>
-                <span class="en" style="font-size: 0.9rem;">Hobbies</span>
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🎮</span>
+                <span class="en">Hobbies</span>
             </div>
-            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
-                <span style="font-size: 2rem;">💼</span>
-                <span class="en" style="font-size: 0.9rem;">Work</span>
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">💼</span>
+                <span class="en">Work Life</span>
             </div>
-            <div class="card" style="padding: 1rem; text-align: center; margin-bottom: 0;">
-                <span style="font-size: 2rem;">🚄</span>
-                <span class="en" style="font-size: 0.9rem;">Travel</span>
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🚄</span>
+                <span class="en">Travel Tips</span>
             </div>
         </div>
     </section>
 
-    <section class="reveal" style="animation-delay: 0.6s;">
+    <section class="reveal">
         <h2>Pricing</h2>
-        <div class="card" style="border: 4px solid var(--accent-yellow);">
-            <div style="text-align: center; margin-bottom: 1.5rem;">
-                <span class="en" style="font-size: 1.5rem;">Monthly Plan</span>
-                <span class="jp">一番人気！1か月コース</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ddd; padding: 0.5rem 0;">
-                <span class="en">50 min × 4</span>
-                <span class="en" style="color: var(--main-red);">$70</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
-                <span class="en">25 min × 4</span>
-                <span class="en" style="color: var(--main-red);">$35</span>
-            </div>
-                <p style="font-size: 0.75rem; color: #777; text-align: center;">
-                Lessons are provided online via Google Meet. No physical goods are sold.
+        <div class="pricing-container">
+            <div class="price-card">
+                <div style="margin-bottom: 2rem;">
+                    <span class="en" style="font-size: 1.8rem; color: var(--frensei-blue);">Monthly Plan</span>
+                    <span class="jp">継続して上達したい方へ</span>
+                </div>
+                <div class="price-row">
+                    <span class="en">50 min × 4 lessons</span>
+                    <span class="price-val">$70</span>
+                </div>
+                <div class="price-row">
+                    <span class="en">25 min × 4 lessons</span>
+                    <span class="price-val">$35</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #999; margin-top: 2rem;">
+                    *No hidden fees. Payments via Stripe or Wise.
                 </p>
-                <p style="font-size: 0.75rem; color: #777; text-align: center;">
-                     All prices are in USD.
-                 </p>
-
+            </div>
         </div>
     </section>
 
-</div><footer id="booking">
+</div><footer>
     <div class="container">
-        <h2 style="margin-top: 0;">Try for FREE!</h2>
-        <p class="en">Let's have a 30-min chat.</p>
-        <p class="jp">まずは30分、いっしょにお話ししましょう！</p>
+        <h2 style="margin-top: 0; color: var(--frensei-red);">Ready to chat?</h2>
+        <p class="en">Join our friendly community!</p>
+        <p class="jp">まずは30分、リラックスして話しましょう。</p>
         
-       
         <a href="https://calendly.com/frensei-jp/30min" class="btn-pop">
-            <span style="font-size: 1.3rem;">BOOK MY LESSON</span>
+            <span style="font-size: 1.3rem;">BOOK FREE TRIAL</span>
         </a>
         
-        <p style="font-size: 0.9rem;">
-              Contact: <a href="mailto:frensei.jp@gmail.com">frensei.jp@gmail.com</a>
-        </p>
-             
-
-
-       <a href="./commercial-disclosure.html">Commercial Disclosure</a>
-
-
-        <p style="font-size: 0.8rem; color: #999;">© 2025 Frensei Japanese</p>
+        <div class="footer-links">
+            <a href="mailto:frensei.jp@gmail.com">Contact</a>
+            <a href="./commercial-disclosure.html">Commercial Disclosure</a>
+        </div>
+        
+        <p style="font-size: 0.8rem; color: #bbb;">© 2025 Frensei Japanese. All rights reserved.</p>
     </div>
 </footer>
 
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <script>
-    // スクロールに合わせてアニメーションを発火させるスクリプト
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
+    // Intersection Observer for Animations
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal');
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('section').forEach(section => {
-        section.style.opacity = "0"; // 初期状態
         observer.observe(section);
     });
-</script>
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script type="text/javascript">
-     window.onload = function() {
-        // 全ての .btn-pop ボタンにCalendlyのポップアップ機能を紐付けます
+
+    // Calendly Popup
+    window.onload = function() {
         const buttons = document.querySelectorAll('.btn-pop');
         buttons.forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault(); // 通常のページ遷移を止める
+                e.preventDefault();
                 Calendly.initPopupWidget({ url: this.href });
                 return false;
             });
         });
     }
-    </script>
+</script>
 
 </body>
 </html>
